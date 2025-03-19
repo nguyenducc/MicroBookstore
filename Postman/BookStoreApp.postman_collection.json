@@ -1,0 +1,2099 @@
+{
+	"info": {
+		"_postman_id": "13f53f44-33a4-460c-86a3-2d264b19c725",
+		"name": "BookStoreApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account Service",
+			"item": [
+				{
+					"name": "Get OAuth Token - ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"accessToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "client.devd123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "93ed453e-b7ac-4192-a6d4-c45fae0d99ac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin.admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin.devd123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/oauth/token",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "client.devd123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "93ed453e-b7ac-4192-a6d4-c45fae0d99ac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/oauth/token?grant_type=refresh_token&refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsid2ViIl0sInVzZXJfaWQiOiI4Y2U5OWE0MC01Y2Q0LTQ2ZWItOTQ5OC1lNzE4NTdjMzg1MzgiLCJ1c2VyX25hbWUiOiJkZXZkMTIzNCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJkMGMzMDE4MC04ZDdmLTRmMjEtYTBhOC1lMGNiODdmNTZmMzciLCJleHAiOjE2MDg2MzQ0NDksImF1dGhvcml0aWVzIjpbIlNUQU5EQVJEX1VTRVIiXSwianRpIjoiMzA2NzEwNjAtNTZlZi00ZTNhLWIzNGUtN2M2NGU1MmEwYTk2IiwiY2xpZW50X2lkIjoiOTNlZDQ1M2UtYjdhYy00MTkyLWE2ZDQtYzQ1ZmFlMGQ5OWFjIn0.L5GZwNm3HzlWnwXv64RVtEBJ4Sr2rLKdLgE19fBIw4HWyetmBJWaRvzXM6LDfayRKIAE18atVxXye0DYv_uxjUc7CSmBuG_GMRwxhERIGSx2ifkkmoRvq7pyn0aVJRBrQy1FW0w863l4tjqq35_m432srKzIYxNrRTxXLn9IL0U0Zpv6OIpmRybdlxWLQBGW90T_iWYIDhPnQ6Uov9YFUcKYMGu1COU9rwt6m55zY94lm6Ezz7cUCmR2yewJypR1cpVxnhDb58_aNwnXWabjECUKaZPybgIMNbHH55_5McgUHH4rp4TTzQEblkv1d8I1_SrTg_y8wFsYjz1x7d4Hww",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							],
+							"query": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsid2ViIl0sInVzZXJfaWQiOiI4Y2U5OWE0MC01Y2Q0LTQ2ZWItOTQ5OC1lNzE4NTdjMzg1MzgiLCJ1c2VyX25hbWUiOiJkZXZkMTIzNCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJkMGMzMDE4MC04ZDdmLTRmMjEtYTBhOC1lMGNiODdmNTZmMzciLCJleHAiOjE2MDg2MzQ0NDksImF1dGhvcml0aWVzIjpbIlNUQU5EQVJEX1VTRVIiXSwianRpIjoiMzA2NzEwNjAtNTZlZi00ZTNhLWIzNGUtN2M2NGU1MmEwYTk2IiwiY2xpZW50X2lkIjoiOTNlZDQ1M2UtYjdhYy00MTkyLWE2ZDQtYzQ1ZmFlMGQ5OWFjIn0.L5GZwNm3HzlWnwXv64RVtEBJ4Sr2rLKdLgE19fBIw4HWyetmBJWaRvzXM6LDfayRKIAE18atVxXye0DYv_uxjUc7CSmBuG_GMRwxhERIGSx2ifkkmoRvq7pyn0aVJRBrQy1FW0w863l4tjqq35_m432srKzIYxNrRTxXLn9IL0U0Zpv6OIpmRybdlxWLQBGW90T_iWYIDhPnQ6Uov9YFUcKYMGu1COU9rwt6m55zY94lm6Ezz7cUCmR2yewJypR1cpVxnhDb58_aNwnXWabjECUKaZPybgIMNbHH55_5McgUHH4rp4TTzQEblkv1d8I1_SrTg_y8wFsYjz1x7d4Hww"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User (Admin uses this api to create user in the system)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var randomId = require('uuid').v4(); ",
+									"pm.environment.set('randomId', randomId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"{{randomId}}\",\n  \"password\": \"pass@1234\",\n  \"firstName\": \"devaraj\",\n  \"lastName\": \"reddy\",\n  \"email\": \"{{randomId}}@g.c\",\n  \"roleNames\" : [\"STANDARD_USER\",\"ADMIN_USER\"]\n}"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user?userId=42fe6f25-2559-40f3-8acf-ab51eb8b7c67",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "42fe6f25-2559-40f3-8acf-ab51eb8b7c67"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"devd1234\",\n  \"password\": \"pass1234\",\n  \"firstName\": \"devd\",\n  \"email\": \"{{$guid}}@g.c\"\n}"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/signup",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"accessToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "client.devd123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "93ed453e-b7ac-4192-a6d4-c45fae0d99ac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "devd12345",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pass1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/oauth/token",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by UserName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user?userName=admin.admin",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "admin.admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get UserInfo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/userInfo",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"userInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserInfo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"devd\",\n    \"lastName\": \"reddy\",\n    \"email\": \"asdasdasda@g.c\",\n    \"password\": \"pass@1235\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/userInfo",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"userInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create OAuth Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"authorized_grant_types\": [\n    \"password\",\n    \"authorization_code\",\n    \"refresh_token\",\n    \"client_credentials\"\n  ],\n  \"authorities\": [\n    \"ADMIN_USER\"\n  ],\n  \"scope\": [\n    \"read\",\n    \"write\"\n  ],\n  \"resource_ids\": [\n    \"web\",\n    \"db\"\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/client",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Oauth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "client.devd123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "93ed453e-b7ac-4192-a6d4-c45fae0d99ac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin.admin",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "jwtpass",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/oauth/token",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(201); });",
+									"",
+									"// postman.setNextRequest(\"Get OAuth Token - ADMIN\"); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleName\": \"SELLER_ROLE\",\n  \"roleDescription\": \"This role is for sellers, who want to list and sell products.\"\n}"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/role",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Roles to User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleNames\": [\n    \"ADMIN_USER\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user/devd.cores/roles",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user",
+								"devd.cores",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Users to Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userNames\": [\n    \"devd.cores\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/role/SELLER_ROLE/users",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"role",
+								"SELLER_ROLE",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/roles",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/users",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user/ffd3b701-a6e1-4129-b91a-1c3718470f48",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user",
+								"ffd3b701-a6e1-4129-b91a-1c3718470f48"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User as Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"wer\",\n    \"lastName\": \"DevD\",\n    \"email\": \"john2.doe@gmail.com\",\n    \"roles\":[]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountServiceAPIGatewayUrl}}/user/e666b095-6727-4229-a4ab-35d2be2fb388",
+							"host": [
+								"{{accountServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"user",
+								"e666b095-6727-4229-a4ab-35d2be2fb388"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Catalog Service",
+			"item": [
+				{
+					"name": "Create Product Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"productCategoryName\": \"TechBooks\",\n   \"description\": \"This category has books related to technology.\"\n}"
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/productCategory",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"productCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"productCategoryId\" : \"c6eec3f6-35f0-4a11-8dae-a859aa2b53d4\",\n   \"productCategoryName\": \"Tech Categories\",\n   \"description\": \"update the name of tech category.\"\n}"
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/productCategory",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"productCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/productCategory/c6eec3f6-35f0-4a11-8dae-a859aa2b53d4",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"productCategory",
+								"c6eec3f6-35f0-4a11-8dae-a859aa2b53d4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Product Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJkZXZkMTIzNCIsImF1dGhvcml0aWVzIjpbIkFETUlOX1VTRVIiLCJTVEFOREFSRF9VU0VSIl0sImF1ZCI6WyJ3ZWIiXSwiZXhwIjoxNTY2OTAyNDQ3LCJpYXQiOjE1NjY4OTk0NDd9.G_7np2LRxNBHmOHkig02J7kP4tKsDAectdzQHfoDH4nN_ip_ycNiKqnFPV_chzTYHFy7DQ0VcXaGJ9tKQLckZ2LGqpGGuPo2uaL-rZRs6MofV3HzriaySUwKFQ1VJohTRGsHsOdXqH4cMnvppUpT8eWE2U2mlkUn42CVTe90qsuaeDJxIGH4mwWKf5MpqUR0m7vJQUwMNB-bcvmbi51MGH8t4hbOCFqo609ggVCvfxDLqtWgYhhVxRmrYxUXDDHBxiwaTQbh-QPO_mkmz9w7k1ekDQ8d_abstqmSHV8CZ3JsjonLVYjo92XmNddSEe4f8b9LsqTJ_PX79fzKeYQrRw"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/productCategories?direction=ASC&orderBy=PRODUCTCATEGORYNAME&page=0&size=3",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"productCategories"
+							],
+							"query": [
+								{
+									"key": "direction",
+									"value": "ASC"
+								},
+								{
+									"key": "orderBy",
+									"value": "PRODUCTCATEGORYNAME"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/productCategory/8a631cc36b30ab59016b3121eee70003",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"productCategory",
+								"8a631cc36b30ab59016b3121eee70003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"productName\": \"Book 2\",\n   \"description\": \"Book Desc\",\n   \"price\": 113.0,\n   \"productCategoryId\": \"8f825617-9522-4195-bfea-c396d9b966a0\",\n   \"availableItemCount\": 122,\n   \"imageId\": \"bcaa8639-25e8-4d35-83bc-a0ba526636e6\"\n }"
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/product",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"productId\": \"db1b4a0e-b8a9-4d98-90cf-45c6ca246601\",\n   \"productName\": \"Five Some\",\n   \"description\": \"pDesc\",\n   \"price\": 123.0,\n   \"productCategoryId\": \"8f825617-9522-4195-bfea-c396d9b966a0\",\n   \"availableItemCount\": 110\n }"
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/product",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/product/1",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJkZXZkMTIzNCIsImF1dGhvcml0aWVzIjpbIkFETUlOX1VTRVIiLCJTVEFOREFSRF9VU0VSIl0sImF1ZCI6WyJ3ZWIiXSwiZXhwIjoxNTY2OTAyNDQ3LCJpYXQiOjE1NjY4OTk0NDd9.G_7np2LRxNBHmOHkig02J7kP4tKsDAectdzQHfoDH4nN_ip_ycNiKqnFPV_chzTYHFy7DQ0VcXaGJ9tKQLckZ2LGqpGGuPo2uaL-rZRs6MofV3HzriaySUwKFQ1VJohTRGsHsOdXqH4cMnvppUpT8eWE2U2mlkUn42CVTe90qsuaeDJxIGH4mwWKf5MpqUR0m7vJQUwMNB-bcvmbi51MGH8t4hbOCFqo609ggVCvfxDLqtWgYhhVxRmrYxUXDDHBxiwaTQbh-QPO_mkmz9w7k1ekDQ8d_abstqmSHV8CZ3JsjonLVYjo92XmNddSEe4f8b9LsqTJ_PX79fzKeYQrRw"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/products?sort=updatedAt,DESC&page=0&size=4",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "updatedAt,DESC"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/product/402880e46b2d7ce9016b2d7d28350001",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"product",
+								"402880e46b2d7ce9016b2d7d28350001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"db1b4a0e-b8a9-4d98-90cf-45c6ca246601\",\n    \"ratingValue\" : 3,\n    \"reviewMessage\": \"This book is worth reading.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/review",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews For Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX25hbWUiOiJkZXZkMTIzNCIsImF1dGhvcml0aWVzIjpbIkFETUlOX1VTRVIiLCJTVEFOREFSRF9VU0VSIl0sImF1ZCI6WyJ3ZWIiXSwiZXhwIjoxNTY2OTAyNDQ3LCJpYXQiOjE1NjY4OTk0NDd9.G_7np2LRxNBHmOHkig02J7kP4tKsDAectdzQHfoDH4nN_ip_ycNiKqnFPV_chzTYHFy7DQ0VcXaGJ9tKQLckZ2LGqpGGuPo2uaL-rZRs6MofV3HzriaySUwKFQ1VJohTRGsHsOdXqH4cMnvppUpT8eWE2U2mlkUn42CVTe90qsuaeDJxIGH4mwWKf5MpqUR0m7vJQUwMNB-bcvmbi51MGH8t4hbOCFqo609ggVCvfxDLqtWgYhhVxRmrYxUXDDHBxiwaTQbh-QPO_mkmz9w7k1ekDQ8d_abstqmSHV8CZ3JsjonLVYjo92XmNddSEe4f8b9LsqTJ_PX79fzKeYQrRw"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/review?productId=db1b4a0e-b8a9-4d98-90cf-45c6ca246601",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"review"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "db1b4a0e-b8a9-4d98-90cf-45c6ca246601"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageFile",
+									"type": "file",
+									"src": "/Users/dreddy/Downloads/geran-de klerk-_NM6bXPqaCE.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/image/upload",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageFile",
+									"type": "file",
+									"src": "/Users/dreddy/Downloads/My Post(3).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{catalogServiceAPIGatewayUrl}}/image/d62ff6f7-a42c-4ac7-8ecf-8e1e7e646d15__geran-de klerk-_NM6bXPqaCE.jpg",
+							"host": [
+								"{{catalogServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"image",
+								"d62ff6f7-a42c-4ac7-8ecf-8e1e7e646d15__geran-de klerk-_NM6bXPqaCE.jpg"
+							],
+							"query": [
+								{
+									"key": "imageFile",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Billing Service",
+			"item": [
+				{
+					"name": "Create Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"addressLine1\": \"BAs\",\n  \"addressLine2\": \"Lido Mall\",\n  \"city\": \"Bangalore\",\n  \"state\": \"Karnataka\",\n  \"postalCode\": \"560008\",\n  \"country\": \"IN\",\n  \"phone\": \"9988776655\"\n}"
+						},
+						"url": {
+							"raw": "{{billingServiceAPIGatewayUrl}}/address",
+							"host": [
+								"{{billingServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"addressId\": \"9b65992e-5eb4-443a-aa0f-600fad1c815f\",\n    \"addressLine1\": \"MG Road\",\n    \"addressLine2\": \"Lido Mall\",\n    \"city\": \"Bangalore\",\n    \"state\": \"Karnataka\",\n    \"postalCode\": \"560008\",\n    \"country\": \"IN\",\n    \"phone\": \"9988776655\"\n}"
+						},
+						"url": {
+							"raw": "{{billingServiceAPIGatewayUrl}}/address",
+							"host": [
+								"{{billingServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{billingServiceAPIGatewayUrl}}/address",
+							"host": [
+								"{{billingServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{billingServiceAPIGatewayUrl}}/address/25dac376-a345-4d06-a2d1-a18d3009f814",
+							"host": [
+								"{{billingServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"address",
+								"25dac376-a345-4d06-a2d1-a18d3009f814"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{billingServiceAPIGatewayUrl}}/address/695afd2f-c40d-446f-afd0-3247bbd4ebe0",
+							"host": [
+								"{{billingServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"address",
+								"695afd2f-c40d-446f-afd0-3247bbd4ebe0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Service",
+			"item": [
+				{
+					"name": "Create Cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 201\", function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/cart",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/cart",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add CartItem to Cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"2\",\n    \"quantity\": 2\n}"
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/cart/cartItem",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"cart",
+								"cartItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete CartItem",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/cart/cartItem/ff8080816cdcfb4f016cdcff309a0001",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"cart",
+								"cartItem",
+								"ff8080816cdcfb4f016cdcff309a0001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All CartItems",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/cart/cartItem?cartId=8ada3aaa-4e43-42a4-903e-7174dd76872f",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"cart",
+								"cartItem"
+							],
+							"query": [
+								{
+									"key": "cartId",
+									"value": "8ada3aaa-4e43-42a4-903e-7174dd76872f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Preview Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shippingAddressId\": \"ce73df9f-5592-46be-bc1f-b09fe0b80605\",\n    \"paymentMethodId\": \"pm_1HyXsuG9R9y827ntZyGafPT1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/previewOrder",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"previewOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shippingAddressId\": \"13952433-5a9d-49bb-8d60-9da96110bbf4\",\n    \"paymentMethodId\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/order",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/order/c7cf40e8-d279-4e34-9bbb-96537975de01",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"order",
+								"c7cf40e8-d279-4e34-9bbb-96537975de01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All MyOrders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/order/myorders",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"order",
+								"myorders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code should be 200\", function () { pm.response.to.have.status(200); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{orderServiceAPIGatewayUrl}}/orders",
+							"host": [
+								"{{orderServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Service",
+			"item": [
+				{
+					"name": "Create Payment Method.",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"card\": {\n        \"firstName\": \"devd\",\n        \"lastName\": \"reddy\",\n        \"cardNumber\": \"4111111111111111\",\n        \"last4Digits\": \"1111\",\n        \"expirationMonth\": 12,\n        \"expirationYear\": 2023,\n        \"cvv\": 123\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{paymentServiceAPIGatewayUrl}}/paymentMethod",
+							"host": [
+								"{{paymentServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"paymentMethod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All My Payment Methods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentServiceAPIGatewayUrl}}/paymentMethod",
+							"host": [
+								"{{paymentServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"paymentMethod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Payment Methods By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{paymentServiceAPIGatewayUrl}}/paymentMethod/pm_1HyXe2G9R9y827ntOToUD32k",
+							"host": [
+								"{{paymentServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"paymentMethod",
+								"pm_1HyXe2G9R9y827ntOToUD32k"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Do Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{paymentServiceAPIGatewayUrl}}/pay",
+							"host": [
+								"{{paymentServiceAPIGatewayUrl}}"
+							],
+							"path": [
+								"pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

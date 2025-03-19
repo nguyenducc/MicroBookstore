@@ -1,0 +1,11 @@
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/exception/Error.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/filters/PreFilter.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/exception/GlobalExceptionHandler.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/filters/PostFilter.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/filters/RouteFilter.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/config/AddTraceIdToHttpResponseConfig.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/filters/ErrorFilter.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/config/ApiGatewayConfig.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/BookstoreApiGatewayServiceApplication.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/exception/RunTimeExceptionPlaceHolder.java
+/root/BookStoreApp-Distributed-Application/bookstore-api-gateway-service/src/main/java/com/devd/spring/bookstoreapigatewayservice/exception/ErrorResponse.java
