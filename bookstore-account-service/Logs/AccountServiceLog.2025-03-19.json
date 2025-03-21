@@ -1,0 +1,1 @@
+{"@timestamp":"2025-03-19T23:18:59.541+00:00","severity":"INFO","service":"bookstore-account-service","trace":"","span":"","parent":"","exportable":"","pid":"22758","thread":"background-preinit","class":"o.h.validator.internal.util.Version","rest":"HV000001: Hibernate Validator 6.1.5.Final"}

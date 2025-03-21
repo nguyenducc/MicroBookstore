@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.devd.spring.bookstoreaccountservice.BookstoreAccountServiceApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.702 s - in com.devd.spring.bookstoreaccountservice.BookstoreAccountServiceApplicationTests

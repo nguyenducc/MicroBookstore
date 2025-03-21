@@ -1,0 +1,2 @@
+[2025-03-19 23:18:59 UTC] INFO [Service Name -> bookstore-account-service], [TraceId -> ], [SpanId -> ] 
+      <background-preinit> org.hibernate.validator.internal.util.Version : HV000001: Hibernate Validator 6.1.5.Final
