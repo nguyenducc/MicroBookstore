@@ -1,4 +1,4 @@
-# BookStoreApp-Distributed-Application [![HitCount](http://hits.dwyl.io/devdcores/BookStoreApp-Distributed-Application.svg)](http://hits.dwyl.io/devdcores/BookStoreApp-Distributed-Application)
+# BookStoreApp-Distributed-Application 
 
 <hr>
 
@@ -88,66 +88,80 @@ Reason to use Consul is it has better features and support compared to Eureka. R
 
 <hr>
 
-### Troubleshooting
+## Deploying a Microservices Project on Kubernetes with GitLab and ArgoCD
+### Overviews
+After completing the CI (Continuous Integration) process, I built and pushed Docker images for each microservice to a container registry. To deploy the project in a Kubernetes environment, I defined the required configurations using manifest files.
 
-If any issue while starting up services or any api failing.
-It may be because of new columns or new tables, at this point of time i am not worried much about DB migrations.
+### Kubernetes Resources
+The project includes the following Kubernetes resources:
+- Secret & ConfigMap: Store configuration information and sensitive data.
+- Deployment: Declare and manage the lifecycle of services.
 
-So any issues, **clear/drop bookstore_db**, things may start working agai, if not **raise a Issue in Github** i will help.
+- Service: Define how services communicate within the cluster.
 
-<hr>
+- Ingress: Configure access routes from external sources to services within the cluster.
 
-## Deployment(In Future It will be deployed like this)
-AWS is the cloud provider will be using to deploy this project.
+- PersistentVolume (PV) & PersistentVolumeClaim (PVC): Manage persistent storage for services.
 
-Project wil deployed in multiple Regions and multiple Availability Zones. 
+All these manifest files are stored in a GitLab repository for version control and easy management.
 
-React App, Zuul and Eureka will be the public facing service, which will be in public subnet
+### Automated Deployment with ArgoCD
 
-All the microservices will be packed into docker containers and deployes in the AWS ECS in the private subnet.
+To enable automated deployment when there are changes in the manifest files, I use ArgoCD, a GitOps tool that supports Continuous Deployment (CD). ArgoCD monitors the GitLab repository containing the manifest files and automatically updates the application state in Kubernetes whenever changes occur.
 
-Private subnets uses NAT Gateway to make requests to external internet.
+Workflow:
 
-Bastian host can be used to ssh into private subnet microservices.
+1. Commit changes to GitLab
 
-Below is the AWS Architecture diagram for better understanding.
+- When modifying a manifest file (e.g., updating an image version, changing service configurations, modifying ingress rules, etc.), I push the changes to the GitLab repository.
 
-![Bookstore Final](https://user-images.githubusercontent.com/14878408/65784998-000e4500-e171-11e9-96d7-b7c199e74c4c.jpg)
+2. ArgoCD detects changes
+
+- ArgoCD continuously watches the repository and synchronizes the cluster state with the updated configurations.
+
+3. Application deployment
+
+- ArgoCD automatically applies the changes to the Kubernetes cluster, ensuring the deployment stays up-to-date without manual intervention.
+
+### Benefits of Using GitLab + ArgoCD
+
+✅ Fully automates the deployment process, eliminating the need for manual operations.
+
+✅ Enables easy rollback in case of issues by tracking change history in Git.
+
+✅ Ensures high consistency, keeping the deployment environment aligned with the declared configurations.
+
+✅ Simplifies version management, making it easy to monitor and control changes.
+
+By combining GitLab and ArgoCD, I can deploy microservices applications in a flexible, fast, and reliable manner on Kubernetes. 🚀
+
+
+<!-- ![Bookstore Final](https://user-images.githubusercontent.com/14878408/65784998-000e4500-e171-11e9-96d7-b7c199e74c4c.jpg) -->
+
+<p align="center">
+  <img src="./document/images/microservice2.png" alt="Image" style="width: 90%; max-width: 1000px;">
+</p>
+
 
 <hr>
 
 ## Monitoring
-There are 2 setups for monitoring
+I setup PNG Stack & ELK Stack on Kubernetes
 
-1. Prometheus and Graphana.
-2. TICK stack monitoring.
+1. PNG Stack (Prometheus, Node Exporter, Grafana)
+   - **Prometheus**: Collects and stores monitoring data using a pull model.
+   - **Node Exporter**: Gathers system metrics (CPU, RAM, Disk, Network).
+   - **Grafana**: Visualizes Prometheus data through dashboards.
 
-Both the setups are very powerful, where prometheus works on pull model. we have to provide target hosts where the prometheus can pull the metrics from. If we specify target hosts using individual hostname/ip its not feasible at end because it will be like hard coded hostnames/ip. So we use Consul discovery to provide target hosts dynamically. By this way when more instances added for same service no need to worry about adding to prometheus target hosts because consul will dynamically add this target in prometheus.
+    ➡ **Used for monitoring system performance and resources in Kubernetes.**
 
-TICK(Telegraf, InfluxDB, Chronograf, Kapacitor) This setup is getting more attention due to its push and pull model. InfluxDB is a time series database, bookstore services push the metrics to influxDB(push model), In Telegraf we specify the targets to pull metrics(pull model). Chronograf/Graphana can be used to view the graph/charts. Kapacitor is used to configure rules for alarms.
+2. ELK Stack (Elasticsearch, Logstash, Kibana)
+   - **Elasticsearch**: Stores, searches, and analyzes logs.
+   - **Logstash**: Collects, processes, and sends logs to Elasticsearch.
+   - **Kibana**: Provides a UI for visualizing logs and data analysis.
 
-`docker-compose` will take care of bringing all this monitoring containers up.
+    ➡ **Used for log collection, processing, and analysis in Kubernetes.**
 
-Dashboards are available at below ports
-
-```
-Graphana   : 3030
-Zipkin     : 9411
-Prometheus : 9090
-Telegraf   : 8125
-InfluxDb   : 8086
-Chronograf : 8888
-Kapacitor  : 9092 
-
-```
-
-```
-First time login to Graphana use below credentials
-
-Username : admin  
-Password : admin
-
-```
 
 <hr>
 
