@@ -1,12 +1,12 @@
-##### Dockerfile #####
-## build stage ##
-FROM node:18.18-alpine as build
+FROM node:16-alpine AS builder
+
 WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
 COPY . .
-RUN yarn
 RUN yarn build
 
-## run stage ##
-FROM nginx:alpine
-RUN mkdir /run
-COPY --from=build /app/build /run
+FROM nginx:1.25-alpine AS runner
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

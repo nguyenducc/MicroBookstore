@@ -1,6 +1,7 @@
 FROM openjdk:8-jdk-alpine
-
+ 
 VOLUME /tmp
+
 WORKDIR /app
 #ARG JAR_FILE
 
