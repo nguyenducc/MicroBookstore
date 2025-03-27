@@ -93,7 +93,7 @@ CI/CD pipeline using GitLab, Kubernetes, ArgoCD, security scanning tools, monito
 
    - The secure image is pushed to Harbor (Container Registry).
 
-https://gitlab.com/-/project/68155589/uploads/f34f7f33b6143b7b73334a2eaccc13bb/pipeline.mp4
+https://github.com/user-attachments/assets/14ee2e57-0c6d-427a-9f8a-f28f18609d2a
 
 ## Continuous Deployment with ArgoCD
 ### Overviews
