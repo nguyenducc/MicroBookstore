@@ -3,66 +3,63 @@
 <hr>
 
 ## About this project
-This is an Ecommerce project still `development in progress`, where users can adds books to the cart and buy those books.
+BookStoreApp Distributed Application is a project developed using a Microservices architecture, designed for flexible management and scaling on Kubernetes (K8S). The project implements a CI/CD DevSecOps model to enhance workflow efficiency, reduce deployment time, and detect security vulnerabilities in both source code and infrastructure.  
 
-Application is being developed using Java, Spring and React.
+<p align="center">
+  <img src="./document/images/design-pipeline.png" alt="Image" style="width: 100%; max-width: 1000px;">
+</p>
 
-Using Spring Cloud Microservices and Spring Boot Framework extensively to make this application distributed. 
+The system includes a CI/CD pipeline using GitLab CI, integrated with tools for source code and container image testing. Additionally, Prometheus and Grafana are used for performance monitoring, while the ELK stack provides centralized logging for effective troubleshooting and analysis.
+
+
+
+
+## Architecture
+<p align="center">
+  <img src="./document/images/microservice2.png" alt="Image" style="width: 100%; max-width: 1000px;">
+</p>
+
+The architecture of this project is a Microservices-based system deployed using Kong Gateway as the API Gateway to route requests from the React Frontend to individual services. The key components of the system include:
+
+### Frontend:
+The React application serves as the user interface, sending HTTP requests to the backend system through Kong Gateway.
+
+### Kong Gateway:
+- Acts as an API Gateway, responsible for routing requests from the frontend to the appropriate Microservices.
+
+- Provides security, load balancing, and API management.
+### Microservices:
+The system follows a microservices architecture, where each service handles a specific functionality:
+
+- Account Service: Manages user accounts.
+
+- Billing Service: Handles invoices and payments.
+
+- Catalog Service: Manages product catalogs.
+
+- Order Service: Processes customer orders.
+
+- Payment Service: Handles payment transactions.
+
+Each service runs in a Docker container, ensuring flexibility and scalability.
+### Database (MySQL):
+Each microservice has its own dedicated database, ensuring independence and scalability.
+
+
+
+
 
 <hr>
 
 ## Frontend Checkout Flow
 ![CheckOutFlow](https://user-images.githubusercontent.com/14878408/103235826-06d5ca00-4969-11eb-87c8-ce618034b4f3.gif)
 
-## Architecture
-All the Microservices are developed using spring boot. 
-This spring boot applications will be registered with eureka discovery server.
-
-FrontEnd React App makes request's to NGINX server which acts as a reverse proxy.
-NGINX server redirects the requests to Zuul API Gateway. 
-
-Zuul will route the requests to microservice
-based on the url route. Zuul also registers with eureka and gets the ip/domain from eureka for microservice while routing the request. 
 
 <hr>
 
-## Run this project in Local Machine
+## Run this project in Kubernetes
 
->Frontend App 
 
-Navigate to `bookstore-frontend-react-app` folder
-Run below commnads to start Frontend React Application
-
-```
-yarn install
-yarn start
-```
-
->Backend Services
->
-To Start Backend Services follow below steps.
->Using Intellij/Eclipse or Command Line
-
-Import this project into IDE and run all Spring boot projects or 
-build all the jars running `mvn clean install` command in root parent pom, which builds all jars.
-All services will be up in the below mentioned ports.
-
-But running this way we wont get monitoring of microservices. 
-So if monitoring needed to see metrics like jvm memory, tomcat error count and other metrics.
-
-Use below method to deploy all the services and monitoring setup in docker.
-
->Using Docker(Recommended)
-
-Start Docker Engine in your machine.
-
-Run `mvn clean install` at root of project to build all the microservices jars.
-
-Run `docker-compose up --build` to start all the containers.
-
-Use the `Postman Api collection` in the Postman directory. To make request to various services.
-
-Services will be exposed in this ports
 
 ```
 Api Gateway Service       : 8765
@@ -77,18 +74,28 @@ Payment Service           : 8001
 
 <hr>
 
-### Service Discovery
-This project uses Eureka or Consul as Discovery service.
+## Continuous Integration (CI) with GitLab
+CI/CD pipeline using GitLab, Kubernetes, ArgoCD, security scanning tools, monitoring, and logging solutions. The process follows these key stages:
 
-While running services in local, then using eureka as service discovery.
+1. Code Commit and Triggering the Pipeline
+   - A developer commits code changes to GitLab.
 
-While running using docker, then consul is the service discovery. 
+   - This triggers a GitLab Runner, which initiates the CI/CD process
+  
+2. Static Code Analysis (SAST) and Software Composition Analysis (SCA)
+   - SonarQube performs Static Application Security Testing (SAST) to analyze the code for vulnerabilities.
 
-Reason to use Consul is it has better features and support compared to Eureka. Running services individually in local uses Eureka as service discovery because dont want to run consul agent and set it up as it becomes extra overhead to manage. Since docker-compose manages all consul stuff hence using Consul while running services in docker.
+   - Snyk performs Software Composition Analysis (SCA) to check for security issues in dependencies.
+3. Container Image Building and Security Scanning
+   - The code is built into a Docker image.
 
-<hr>
+   - Trivy scans the Docker image for vulnerabilities.
 
-## Deploying a Microservices Project on Kubernetes with GitLab and ArgoCD
+   - The secure image is pushed to Harbor (Container Registry).
+
+https://gitlab.com/-/project/68155589/uploads/f34f7f33b6143b7b73334a2eaccc13bb/pipeline.mp4
+
+## Continuous Deployment with ArgoCD
 ### Overviews
 After completing the CI (Continuous Integration) process, I built and pushed Docker images for each microservice to a container registry. To deploy the project in a Kubernetes environment, I defined the required configurations using manifest files.
 
@@ -138,9 +145,6 @@ By combining GitLab and ArgoCD, I can deploy microservices applications in a fle
 
 <!-- ![Bookstore Final](https://user-images.githubusercontent.com/14878408/65784998-000e4500-e171-11e9-96d7-b7c199e74c4c.jpg) -->
 
-<p align="center">
-  <img src="./document/images/microservice2.png" alt="Image" style="width: 90%; max-width: 1000px;">
-</p>
 
 
 <hr>
