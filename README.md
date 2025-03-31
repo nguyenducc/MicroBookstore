@@ -6,7 +6,7 @@
 BookStoreApp Distributed Application is a project developed using a Microservices architecture, designed for flexible management and scaling on Kubernetes (K8S). The project implements a CI/CD DevSecOps model to enhance workflow efficiency, reduce deployment time, and detect security vulnerabilities in both source code and infrastructure.  
 
 <p align="center">
-  <img src="./document/images/design-pipeline.png" alt="Image" style="width: 100%; max-width: 1000px;">
+  <img src="./document/images/design-pipeline2.png" alt="Image" style="width: 100%; max-width: 1000px;">
 </p>
 
 The system includes a CI/CD pipeline using GitLab CI, integrated with tools for source code and container image testing. Additionally, Prometheus and Grafana are used for performance monitoring, while the ELK stack provides centralized logging for effective troubleshooting and analysis.
@@ -15,19 +15,21 @@ The system includes a CI/CD pipeline using GitLab CI, integrated with tools for 
 
 
 ## Architecture
-<p align="center">
-  <img src="./document/images/microservice2.png" alt="Image" style="width: 100%; max-width: 1000px;">
-</p>
 
 The architecture of this project is a Microservices-based system deployed using Kong Gateway as the API Gateway to route requests from the React Frontend to individual services. The key components of the system include:
 
 ### Frontend:
-The React application serves as the user interface, sending HTTP requests to the backend system through Kong Gateway.
+The React application serves as the user interface, sending HTTPs requests to the backend system through Kong Gateway.
 
 ### Kong Gateway:
 - Acts as an API Gateway, responsible for routing requests from the frontend to the appropriate Microservices.
 
 - Provides security, load balancing, and API management.
+
+<p align="center">
+  <img src="./document/images/microservice2.png" alt="Image" style="width: 100%; max-width: 1000px;">
+</p>
+
 ### Microservices:
 The system follows a microservices architecture, where each service handles a specific functionality:
 
@@ -130,6 +132,9 @@ Workflow:
 
 - ArgoCD automatically applies the changes to the Kubernetes cluster, ensuring the deployment stays up-to-date without manual intervention.
 
+
+https://github.com/user-attachments/assets/3aae98c0-c7ba-48f2-966e-d577aa57722f
+
 ### Benefits of Using GitLab + ArgoCD
 
 ✅ Fully automates the deployment process, eliminating the need for manual operations.
@@ -145,7 +150,22 @@ By combining GitLab and ArgoCD, I can deploy microservices applications in a fle
 
 <!-- ![Bookstore Final](https://user-images.githubusercontent.com/14878408/65784998-000e4500-e171-11e9-96d7-b7c199e74c4c.jpg) -->
 
+<hr>
 
+## Security scan and performance testing
+Sau khi website được triển khai, tôi thực hiện quá trình quét bảo mật và hiệu năng cho website. 
+
+- Security Scan: Phát hiện và khắc phục lỗ hổng bảo mật, bảo vệ website khỏi các cuộc tấn công như SQL Injection, XSS, CSRF. Kiểm tra cấu hình hệ thống, tuân thủ tiêu chuẩn bảo mật và ngăn chặn mã độc.
+
+- Performance Testing: Đánh giá khả năng chịu tải, tối ưu hóa hiệu suất, xác định giới hạn hệ thống và đảm bảo website hoạt động ổn định ngay cả khi có lượng truy cập lớn.
+
+Trong project này, tôi tích hợp công cụ Arachni (Security scan) và K6 (performance testing) vào pipeline sau khi xây dựng và triển khai Frontend để thực hiện các qui trình này. K6 hỗ trợ nhiều kịch bản test: Load test, stress test, smoke test, Soak test. 
+Tuy nhiên để đảm bảo thời gian pipeline phù hợp, project này chỉ thực hiện smoke test để kiểm tra tính hợp lệ của website. Quá trình auto test không thể thay thế hoàn toàn test thủ công và cần kết hợp với các công cụ monitor(prometheus, node exporter, grafana)để phân 
+tích và đưa ra các giới hạn các tài nguyên phù hợp với từng service.   
+
+Video demo:
+
+https://github.com/user-attachments/assets/ba437b94-dce3-438e-bc0c-54e5ef88038e
 
 <hr>
 
@@ -166,6 +186,7 @@ I setup PNG Stack & ELK Stack on Kubernetes
 
     ➡ **Used for log collection, processing, and analysis in Kubernetes.**
 
+https://github.com/user-attachments/assets/3a52aab1-a543-45a4-bb38-f2caad844d9c
 
 <hr>
 
@@ -180,12 +201,9 @@ I setup PNG Stack & ELK Stack on Kubernetes
 <img alt="Grafana" src="./document/images/grafana4.png">
 <hr>
 
-**Screenshots of Monitoring in Chronograf(TICK).**
+**Screenshots of Monitoring in ELK.**
 
-![Screen Shot 2019-10-16 at 12 44 20 PM](https://user-images.githubusercontent.com/14878408/66934353-f8e3a400-f057-11e9-82ab-eda7a230c09d.png)
-
-![Screen Shot 2019-10-16 at 12 52 08 PM](https://user-images.githubusercontent.com/14878408/66934482-2e888d00-f058-11e9-8dea-f1f275765265.png)
-
+<img alt="ELK" src="./document/images/elk.png">
 <hr>
 
 > Account Service
