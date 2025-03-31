@@ -169,21 +169,15 @@ I setup PNG Stack & ELK Stack on Kubernetes
 
 <hr>
 
-**Screenshots of Tracing in Zipkin.**
+**Screenshots of Grafana.**
 
-<img alt="Zipkin" src="https://user-images.githubusercontent.com/14878408/65939069-6b426a80-e442-11e9-90fd-d54b60786d41.png">
+<img alt="Grafana" src="./document/images/grafana1.png">
 <hr>
-<img alt="Zipkin" src="https://user-images.githubusercontent.com/14878408/65939165-bb213180-e442-11e9-9ad7-5cfd4fa121ef.png">
-
+<img alt="Grafana" src="./document/images/grafana2.png">
 <hr>
-
-**Screenshots of Monitoring in Graphana.**
-
-<img width="1680" alt="Screen Shot 2019-10-16 at 9 16 21 PM" src="https://user-images.githubusercontent.com/14878408/66936473-65ac6d80-f05b-11e9-9e7d-9652059438cd.png">
-
-
-<img width="1680" alt="Screen Shot 2019-10-16 at 9 16 12 PM" src="https://user-images.githubusercontent.com/14878408/66936524-79f06a80-f05b-11e9-8898-1002813aad8e.png">
-
+<img alt="Grafana" src="./document/images/grafana3.png">
+<hr>
+<img alt="Grafana" src="./document/images/grafana4.png">
 <hr>
 
 **Screenshots of Monitoring in Chronograf(TICK).**
