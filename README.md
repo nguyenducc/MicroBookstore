@@ -3,16 +3,13 @@
 <hr>
 
 ## About this project
-BookStoreApp Distributed Application is a project developed using a Microservices architecture, designed for flexible management and scaling on Kubernetes (K8S). The project implements a CI/CD DevSecOps model to enhance workflow efficiency, reduce deployment time, and detect security vulnerabilities in both source code and infrastructure.  
+BookStoreApp Distributed Application is a project developed using a Microservices architecture, designed for flexible management and scaling on Kubernetes (K8S). The project implements a CI/CD DevSecOps model (Continuous Integration / Continuous Deployment and Security Operations) to enhance workflow efficiency, reduce deployment time, and detect security vulnerabilities in both source code and infrastructure.  
 
 <p align="center">
   <img src="./document/images/design-pipeline2.png" alt="Image" style="width: 100%; max-width: 1000px;">
 </p>
 
 The system includes a CI/CD pipeline using GitLab CI, integrated with tools for source code and container image testing. Additionally, Prometheus and Grafana are used for performance monitoring, while the ELK stack provides centralized logging for effective troubleshooting and analysis.
-
-
-
 
 ## Architecture
 
@@ -48,9 +45,6 @@ Each service runs in a Docker container, ensuring flexibility and scalability.
 Each microservice has its own dedicated database, ensuring independence and scalability.
 
 
-
-
-
 <hr>
 
 ## Frontend Checkout Flow
@@ -77,7 +71,7 @@ Payment Service           : 8001
 <hr>
 
 ## Continuous Integration (CI) with GitLab
-CI/CD pipeline using GitLab, Kubernetes, ArgoCD, security scanning tools, monitoring, and logging solutions. The process follows these key stages:
+CI/CD pipeline using GitLab, Kubernetes, ArgoCD, security scanning tools, performance test, monitoring, and logging solutions. The process follows these key stages:
 
 1. Code Commit and Triggering the Pipeline
    - A developer commits code changes to GitLab.
@@ -116,7 +110,7 @@ All these manifest files are stored in a GitLab repository for version control a
 
 ### Automated Deployment with ArgoCD
 
-To enable automated deployment when there are changes in the manifest files, I use ArgoCD, a GitOps tool that supports Continuous Deployment (CD). ArgoCD monitors the GitLab repository containing the manifest files and automatically updates the application state in Kubernetes whenever changes occur.
+To enable automated deployment when there were changes in the manifest files, I used ArgoCD, a GitOps tool that supports Continuous Deployment (CD). ArgoCD monitored the GitLab repository containing the manifest files and automatically updated the application state in Kubernetes whenever changes occurred.
 
 Workflow:
 
@@ -153,15 +147,15 @@ By combining GitLab and ArgoCD, I can deploy microservices applications in a fle
 <hr>
 
 ## Security scan and performance testing
-Sau khi website được triển khai, tôi thực hiện quá trình quét bảo mật và hiệu năng cho website. 
+After deploying the website, I performed security scanning and performance testing to ensure the system was secure and operated efficiently.
 
-- Security Scan: Phát hiện và khắc phục lỗ hổng bảo mật, bảo vệ website khỏi các cuộc tấn công như SQL Injection, XSS, CSRF. Kiểm tra cấu hình hệ thống, tuân thủ tiêu chuẩn bảo mật và ngăn chặn mã độc.
+- Security Scan: Detected and mitigated security vulnerabilities, protecting the website from attacks such as SQL Injection, XSS, and CSRF. It also checked system configurations, ensured compliance with security standards, and prevented malware threats.
 
-- Performance Testing: Đánh giá khả năng chịu tải, tối ưu hóa hiệu suất, xác định giới hạn hệ thống và đảm bảo website hoạt động ổn định ngay cả khi có lượng truy cập lớn.
+- Performance Testing: Assessed load capacity, optimized performance, identified system limitations, and ensured stable operation even under high traffic.
 
-Trong project này, tôi tích hợp công cụ Arachni (Security scan) và K6 (performance testing) vào pipeline sau khi xây dựng và triển khai Frontend để thực hiện các qui trình này. K6 hỗ trợ nhiều kịch bản test: Load test, stress test, smoke test, Soak test. 
-Tuy nhiên để đảm bảo thời gian pipeline phù hợp, project này chỉ thực hiện smoke test để kiểm tra tính hợp lệ của website. Quá trình auto test không thể thay thế hoàn toàn test thủ công và cần kết hợp với các công cụ monitor(prometheus, node exporter, grafana)để phân 
-tích và đưa ra các giới hạn các tài nguyên phù hợp với từng service.   
+In this project, I integrated Arachni (for security scanning) and K6 (for performance testing) into the pipeline after building and deploying the frontend. K6 supported various testing scenarios, including load testing, stress testing, smoke testing, and soak testing. However, to maintain an efficient pipeline, this project focused on smoke testing to verify the website’s validity.
+
+While automated testing enhanced efficiency, it could not completely replace manual testing. Therefore, I also integrated Prometheus, Node Exporter, and Grafana for monitoring, analyzing, and defining appropriate resource limits for each service.
 
 Video demo:
 
@@ -170,8 +164,7 @@ https://github.com/user-attachments/assets/ba437b94-dce3-438e-bc0c-54e5ef88038e
 <hr>
 
 ## Monitoring
-I setup PNG Stack & ELK Stack on Kubernetes
-
+To monitor the detailed resource usage of the Kubernetes cluster, project used the PNG stack (Prometheus, Grafana, Node Exporter, etc.). Meanwhile, for log collection and analysis, project used the ELK stack (Elasticsearch, Logstash, Kibana).
 1. PNG Stack (Prometheus, Node Exporter, Grafana)
    - **Prometheus**: Collects and stores monitoring data using a pull model.
    - **Node Exporter**: Gathers system metrics (CPU, RAM, Disk, Network).
