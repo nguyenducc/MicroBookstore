@@ -36,10 +36,10 @@ The system includes a CI/CD pipeline using GitLab CI, integrated with tools for 
 
 The architecture of this project is a Microservices-based system deployed using Kong Gateway as the API Gateway to route requests from the React Frontend to individual services. The key components of the system include:
 
-### Frontend:
+### Frontend
 The React application serves as the user interface, allowing users to interact with the system. It sends HTTPS requests to the backend services, which are routed and managed by Kong Gateway, ensuring secure, scalable, and efficient communication between the frontend and the backend.
 
-### Kong Gateway:
+### Kong Gateway
 - Acts as an API Gateway, responsible for routing requests from the frontend to the appropriate Microservices.
 
 - Provides security, load balancing, and API management.
@@ -48,7 +48,7 @@ The React application serves as the user interface, allowing users to interact w
   <img src="./document/images/microservice2.png" alt="Image" style="width: 100%; max-width: 1000px;">
 </p>
 
-### Microservices:
+### Microservices
 The system follows a microservices architecture, where each service handles a specific functionality:
 
 - Account Service: Manages user accounts.
