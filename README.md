@@ -28,7 +28,7 @@ The system includes a CI/CD pipeline using GitLab CI, integrated with tools for 
     - [Kubernetes Resources](#kubernetes-resources)
     - [Automated Deployment with ArgoCD](#automated-deployment-with-argocd)
     - [Benefits of Using GitLab + ArgoCD](#benefits-of-using-gitlab--argocd)
-  - [Security scan and performance testing](#security-scan-and-performance-testing)
+  - [Security and performance testing](#security-and-performance-testing)
   - [Monitoring](#monitoring)
 
 
@@ -169,7 +169,7 @@ By combining GitLab and ArgoCD, I can deploy microservices applications in a fle
 
 <hr>
 
-## Security scan and performance testing
+## Security and performance testing
 After deploying the website, I performed security scanning and performance testing to ensure the system was secure and operated efficiently.
 
 - Security Scan: Detected and mitigated security vulnerabilities, protecting the website from attacks such as SQL Injection, XSS, and CSRF. It also checked system configurations, ensured compliance with security standards, and prevented malware threats.
