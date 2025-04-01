@@ -1,9 +1,9 @@
-# BookStoreApp-Distributed-Application 
+# MicroBookstore - Cloud Native Bookstore 
 
 <hr>
 
 ## About this project
-BookStoreApp Distributed Application is a project developed using a Microservices architecture, designed for flexible management and scaling on Kubernetes (K8S). The project implements a CI/CD DevSecOps model (Continuous Integration / Continuous Deployment and Security Operations) to enhance workflow efficiency, reduce deployment time, and detect security vulnerabilities in both source code and infrastructure.  
+The MicroBookstore is a microservices-based project designed for flexible management and scalability on Kubernetes (K8s). It incorporates a CI/CD DevSecOps model (Continuous Integration, Continuous Deployment, and Security Operations) to streamline workflows, reduce deployment time, and enhance security by identifying vulnerabilities in both source code and infrastructure.  
 
 <p align="center">
   <img src="./document/images/design-pipeline2.png" alt="Image" style="width: 100%; max-width: 1000px;">
@@ -11,12 +11,33 @@ BookStoreApp Distributed Application is a project developed using a Microservice
 
 The system includes a CI/CD pipeline using GitLab CI, integrated with tools for source code and container image testing. Additionally, Prometheus and Grafana are used for performance monitoring, while the ELK stack provides centralized logging for effective troubleshooting and analysis.
 
+## Table of Contents
+- [MicroBookstore - Cloud Native Bookstore](#microbookstore---cloud-native-bookstore)
+  - [About this project](#about-this-project)
+  - [Table of Contents](#table-of-contents)
+  - [Architecture](#architecture)
+    - [Frontend:](#frontend)
+    - [Kong Gateway:](#kong-gateway)
+    - [Microservices:](#microservices)
+    - [Database (MySQL):](#database-mysql)
+  - [Frontend Checkout Flow](#frontend-checkout-flow)
+  - [Run this project in Kubernetes](#run-this-project-in-kubernetes)
+  - [Continuous Integration (CI) with GitLab](#continuous-integration-ci-with-gitlab)
+  - [Continuous Deployment with ArgoCD](#continuous-deployment-with-argocd)
+    - [Overviews](#overviews)
+    - [Kubernetes Resources](#kubernetes-resources)
+    - [Automated Deployment with ArgoCD](#automated-deployment-with-argocd)
+    - [Benefits of Using GitLab + ArgoCD](#benefits-of-using-gitlab--argocd)
+  - [Security scan and performance testing](#security-scan-and-performance-testing)
+  - [Monitoring](#monitoring)
+
+
 ## Architecture
 
 The architecture of this project is a Microservices-based system deployed using Kong Gateway as the API Gateway to route requests from the React Frontend to individual services. The key components of the system include:
 
 ### Frontend:
-The React application serves as the user interface, sending HTTPs requests to the backend system through Kong Gateway.
+The React application serves as the user interface, allowing users to interact with the system. It sends HTTPS requests to the backend services, which are routed and managed by Kong Gateway, ensuring secure, scalable, and efficient communication between the frontend and the backend.
 
 ### Kong Gateway:
 - Acts as an API Gateway, responsible for routing requests from the frontend to the appropriate Microservices.
@@ -42,8 +63,7 @@ The system follows a microservices architecture, where each service handles a sp
 
 Each service runs in a Docker container, ensuring flexibility and scalability.
 ### Database (MySQL):
-Each microservice has its own dedicated database, ensuring independence and scalability.
-
+Each microservice has its own dedicated database to ensure independence. This project deploys MySQL on Kubernetes using **StatefulSet**, providing stable data management and seamless scalability.
 
 <hr>
 
@@ -55,7 +75,7 @@ Each microservice has its own dedicated database, ensuring independence and scal
 
 ## Run this project in Kubernetes
 
-
+... The project will be updated with installation instructions using Helm. ...
 
 ```
 Api Gateway Service       : 8765
@@ -88,6 +108,8 @@ CI/CD pipeline using GitLab, Kubernetes, ArgoCD, security scanning tools, perfor
    - Trivy scans the Docker image for vulnerabilities.
 
    - The secure image is pushed to Harbor (Container Registry).
+
+Video demo
 
 https://github.com/user-attachments/assets/14ee2e57-0c6d-427a-9f8a-f28f18609d2a
 
@@ -126,6 +148,7 @@ Workflow:
 
 - ArgoCD automatically applies the changes to the Kubernetes cluster, ensuring the deployment stays up-to-date without manual intervention.
 
+Video demo:
 
 https://github.com/user-attachments/assets/3aae98c0-c7ba-48f2-966e-d577aa57722f
 
@@ -178,6 +201,8 @@ To monitor the detailed resource usage of the Kubernetes cluster, project used t
    - **Kibana**: Provides a UI for visualizing logs and data analysis.
 
     ➡ **Used for log collection, processing, and analysis in Kubernetes.**
+
+Video demo
 
 https://github.com/user-attachments/assets/3a52aab1-a543-45a4-bb38-f2caad844d9c
 
