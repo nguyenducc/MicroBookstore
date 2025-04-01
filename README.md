@@ -154,13 +154,13 @@ https://github.com/user-attachments/assets/3aae98c0-c7ba-48f2-966e-d577aa57722f
 
 ### Benefits of Using GitLab + ArgoCD
 
-✅ Fully automates the deployment process, eliminating the need for manual operations.
+✔ Fully automates the deployment process, eliminating the need for manual operations.
 
-✅ Enables easy rollback in case of issues by tracking change history in Git.
+✔ Enables easy rollback in case of issues by tracking change history in Git.
 
-✅ Ensures high consistency, keeping the deployment environment aligned with the declared configurations.
+✔ Ensures high consistency, keeping the deployment environment aligned with the declared configurations.
 
-✅ Simplifies version management, making it easy to monitor and control changes.
+✔ Simplifies version management, making it easy to monitor and control changes.
 
 By combining GitLab and ArgoCD, I can deploy microservices applications in a flexible, fast, and reliable manner on Kubernetes. 🚀
 

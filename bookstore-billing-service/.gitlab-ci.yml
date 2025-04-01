@@ -1,0 +1,128 @@
+variables:
+  SNYK_CON: snyk-con
+  VERSION: ${CI_COMMIT_SHORT_SHA}
+  SNYK_IMG: snyk_images_${VERSION}
+  SNYK_FILE: result-scan_${VERSION}.html
+  DOCKER_IMAGE_NAME: nguyenducc/bill-service
+
+stages:
+  - debug
+  - scan-source-code
+  - build
+  - scan-images
+  - notify
+
+scan-source-code-snyk:
+  stage: scan-source-code
+  variables:
+    GIT_STRATEGY: clone
+  script: 
+    - docker build --rm --network host --build-arg SNYK_AUTH_TOKEN=${snyk_token} --build-arg OUTPUT_FILENAME=$SNYK_FILE -t $SNYK_IMG -f Dockerfile-snyk .
+    - docker create --name $SNYK_CON $SNYK_IMG
+    - docker cp $SNYK_CON:/app/$SNYK_FILE .
+    - docker rm -f $SNYK_CON
+    - docker rmi -f $SNYK_IMG
+  artifacts:
+    paths:
+      - $SNYK_FILE
+    expire_in: "30 days"
+  tags: 
+    - gitlab-microservice
+  rules:
+    - if: '$CI_COMMIT_TAG'  
+    - if: '$CI_PIPELINE_SOURCE == "api"' 
+    - when: never 
+
+scan-source-code-sonar:
+  stage: scan-source-code
+  variables:
+    GIT_STRATEGY: none
+  script: 
+    - sudo mvn install -DskipTests
+    - sudo chown -R gitlab-runner:gitlab-runner ./target
+    - docker run -v $(pwd):/project --workdir="/project" sonarsource/sonar-scanner-cli -Dsonar.host.url="${url_sonar}" -Dsonar.login="${sonar_token}" -Dsonar.projectKey="bookshop-bill-service" -Dsonar.projectName="bookshop-bill-service" -Dsonar.sources="./src/" -Dsonar.projectVersion="v1.0.0" -Dsonar.java.binaries="target/classes"
+  needs:
+    - scan-source-code-snyk 
+  tags: 
+    - gitlab-microservice
+  rules:
+    - if: '$CI_COMMIT_TAG'  
+    - if: '$CI_PIPELINE_SOURCE == "api"' 
+    - when: never 
+
+builds:
+  stage: build
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - docker login -u ${usr} -p ${passwd}
+  script:
+    # - mvn install -DskipTests
+    - docker build -t ${DOCKER_IMAGE_NAME}:${CI_COMMIT_SHORT_SHA} -f Dockerfile .
+    - docker push ${DOCKER_IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+  tags:
+    - gitlab-microservice
+  rules:
+    - if: '$CI_COMMIT_TAG' 
+    - if: '$CI_PIPELINE_SOURCE == "api"'
+    - when: never 
+
+scan-images:
+  stage: scan-images
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - docker run --rm -v $(pwd):/app -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --format template --template "@contrib/html.tpl" --output /app/report_${VERSION}.html ${DOCKER_IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+    - docker rmi -f ${DOCKER_IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+    - sudo chown gitlab-runner:gitlab-runner report_${VERSION}.html
+  artifacts:
+    paths:
+      - report_${VERSION}.html
+    expire_in: "30 days"
+  tags:
+    - gitlab-microservice
+  rules:
+    - if: '$CI_COMMIT_TAG'  
+    - if: '$CI_PIPELINE_SOURCE == "api"'  
+    - when: never 
+
+notify_success:
+  stage: notify
+  script:
+    - echo "CHAT_ID=${CHAT_ID}"
+    - |
+      TIME="10"
+      URL="${TOKEN_BOTFATHER}/sendMessage"
+      TEXT="CI status: success ✅%0AThe SCA results have been sent to the SonarQube Server.%0AProject: ${CI_PROJECT_NAME}%0AURL: ${CI_PROJECT_URL}/pipelines/${CI_PIPELINE_ID}%0ABranch: ${CI_COMMIT_REF_SLUG}%0AUser: ${GITLAB_USER_NAME}."
+      curl -s --max-time $TIME -d "chat_id=${CHAT_ID}&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
+    - |
+      # send report to chatbox Telegram
+      REPORT_FILE="report_${VERSION}.html"
+      curl -s -X POST "${TOKEN_BOTFATHER}/sendDocument" \
+           -F chat_id=${CHAT_ID} \
+           -F document=@$REPORT_FILE
+    - |
+      SNYK_FILE="$SNYK_FILE"
+      curl -s -X POST "${TOKEN_BOTFATHER}/sendDocument" \
+           -F chat_id=${CHAT_ID} \
+           -F document=@$SNYK_FILE          
+  when: on_success  
+  rules:
+    - if: '$CI_COMMIT_TAG'  
+    - if: '$CI_PIPELINE_SOURCE == "api"' 
+    - when: never 
+    
+notify_error:
+  stage: notify
+  script:
+    - echo "CHAT_ID=${CHAT_ID}"
+    - |
+      TIME="10"
+      URL="${TOKEN_BOTFATHER}/sendMessage"
+      TEXT="Deploy status: failed ❌%0A%0AProject: ${CI_PROJECT_NAME}%0AURL: ${CI_PROJECT_URL}/pipelines/${CI_PIPELINE_ID}%0ABranch: ${CI_COMMIT_REF_SLUG}%0AUser: ${GITLAB_USER_NAME}"
+      curl -s --max-time $TIME -d "chat_id=${CHAT_ID}&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
+  when: on_failure  
+  rules:
+    - if: '$CI_COMMIT_TAG' 
+    - if: '$CI_PIPELINE_SOURCE == "api"' 
+    - when: never 
