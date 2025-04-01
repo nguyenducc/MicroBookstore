@@ -208,6 +208,11 @@ https://github.com/user-attachments/assets/3a52aab1-a543-45a4-bb38-f2caad844d9c
 
 <hr>
 
+**Screenshots of ELK.**
+
+<img alt="ELK" src="./document/images/elk.png">
+<hr>
+
 **Screenshots of Grafana.**
 
 <img alt="Grafana" src="./document/images/grafana1.png">
@@ -217,11 +222,6 @@ https://github.com/user-attachments/assets/3a52aab1-a543-45a4-bb38-f2caad844d9c
 <img alt="Grafana" src="./document/images/grafana3.png">
 <hr>
 <img alt="Grafana" src="./document/images/grafana4.png">
-<hr>
-
-**Screenshots of Monitoring in ELK.**
-
-<img alt="ELK" src="./document/images/elk.png">
 <hr>
 
 > Account Service
