@@ -19,7 +19,7 @@ The system includes a CI/CD pipeline using GitLab CI, integrated with tools for 
     - [Frontend](#frontend)
     - [Kong Gateway](#kong-gateway)
     - [Microservices](#microservices)
-    - [Database (MySQL):](#database-mysql)
+    - [Database (MySQL)](#database-mysql)
   - [Frontend Checkout Flow](#frontend-checkout-flow)
   - [Run this project in Kubernetes](#run-this-project-in-kubernetes)
   - [Continuous Integration (CI) with GitLab](#continuous-integration-ci-with-gitlab)
@@ -62,7 +62,7 @@ The system follows a microservices architecture, where each service handles a sp
 - Payment Service: Handles payment transactions.
 
 Each service runs in a Docker container, ensuring flexibility and scalability.
-### Database (MySQL):
+### Database (MySQL)
 Each microservice has its own dedicated database to ensure independence. This project deploys MySQL on Kubernetes using **StatefulSet**, providing stable data management and seamless scalability.
 
 <hr>
