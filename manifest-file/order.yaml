@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-configmap
+  namespace: bookshop
+data:
+  application.yml: |
+    server:
+      port: ${SERVER_PORT:7001}
+
+    security:
+      jwt:
+        public-key: classpath:jwt-signing-public-key.txt
+
+    spring:
+      profiles:
+        active: ${SPRING_PROFILES_ACTIVE:mysql}
+      zipkin:
+        base-url: http://${ZIPKIN_HOST:localhost:9411}
+        enabled: false
+        service:
+          name: bookstore-order-service
+        message-timeout: 10
+      sleuth:
+        sampler:
+          probability: 1.0
+      flyway:
+        table: order_service_flyway_history
+        baseline-on-migrate: true
+        baseline-version: 0.9
+      main:
+        allow-bean-definition-overriding: true
+      cloud:
+        consul:
+          enabled: false
+
+    logging:
+      level:
+        com.devd.spring.*: DEBUG
+
+    management:
+      endpoint:
+        hystrix:
+          stream:
+            enabled: true
+
+    ---
+
+    spring:
+      profiles: mysql
+      jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: mysql
+        open-in-view: true
+        generate-ddl: true
+        hibernate:
+          ddl-auto: validate
+          naming:
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+          hibernate:
+            show_sql: true
+            use_sql_comments: true
+            format_sql: true
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://mysql-service.bookshop.svc.cluster.local:3306/bookstore_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: bookstoreDBA
+        password: PaSSworD
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  namespace: bookshop
+spec:
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+      - name: order
+        image: nguyenducc/order-service:v5
+        ports:
+        - containerPort: 7001
+        volumeMounts:
+        - name: order
+          mountPath: "/app/src/main/resources/application.yml"
+          subPath: application.yml
+      volumes:
+      - name: order  
+        configMap:
+          name: order-configmap
+      # imagePullSecrets:
+      # - name: harbor-secret    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: bookshop
+spec:
+  selector:
+    app: order
+  ports:
+  - port: 7001
+    targetPort: 7001
+  type: ClusterIP  

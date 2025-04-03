@@ -1,0 +1,117 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-configmap
+  namespace: bookshop
+data:
+  application.yml: |
+    server:
+      port: ${SERVER_PORT:4001}
+
+    security:
+      jwt:
+        key-store: classpath:JWTKeystore.p12
+        key-store-password: devdcorespass
+        key-pair-alias: jwt-key
+        key-pair-password: devdcorespass
+        public-key: classpath:jwt-signing-public-key.txt
+
+    spring:
+      profiles:
+        active: ${SPRING_PROFILES_ACTIVE:mysql}
+      zipkin:
+        base-url: http://${ZIPKIN_HOST:localhost:9411}
+        enabled: true
+        service:
+          name: bookstore-account-service
+        message-timeout: 10
+      sleuth:
+        sampler:
+          probability: 1.0
+      flyway:
+        table: account_service_flyway_history
+        baseline-on-migrate: true
+        baseline-version: 0.9
+      main:
+        allow-bean-definition-overriding: true
+      cloud:
+        consul:
+          enabled: false  # Vô hiệu hóa Consul  
+
+    logging:
+      level:
+        com.devd.spring.*: DEBUG
+
+    management:
+      endpoint:
+        hystrix:
+          stream:
+            enabled: true
+
+
+    ---
+
+    spring:
+      profiles: mysql
+      jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: mysql
+        open-in-view: true
+        generate-ddl: true
+        hibernate:
+          ddl-auto: validate
+          naming:
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+          hibernate:
+            show_sql: true
+            use_sql_comments: true
+            format_sql: true
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://mysql-service.bookshop.svc.cluster.local:3306/bookstore_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: bookstoreDBA
+        password: PaSSworD
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  namespace: bookshop
+spec:
+  selector:
+    matchLabels:
+      app: account
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+      - name: account
+        image: nguyenducc/account-service:v3
+        ports:
+        - containerPort: 4001
+        volumeMounts:
+        - name: account
+          mountPath: "/app/src/main/resources/application.yml"
+          subPath: application.yml
+      volumes:
+      - name: account  
+        configMap:
+          name: account-configmap
+      # imagePullSecrets:
+      # - name: harbor-secret    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+  namespace: bookshop
+spec:
+  selector:
+    app: account
+  ports:
+  - port: 4001
+    targetPort: 4001
+  type: ClusterIP  

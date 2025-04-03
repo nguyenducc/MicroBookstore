@@ -1,0 +1,83 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bookshop-pv
+  namespace: bookshop
+spec:
+  capacity:
+    storage: 5Gi 
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-storageclass
+  nfs:
+    path: /data/bookshop-db
+    server: 192.168.1.16
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+  namespace: bookshop
+type: Opaque
+stringData:
+  MYSQL_DATABASE: "bookstore_db"
+  MYSQL_USER: "bookstoreDBA"
+  MYSQL_PASSWORD: "PaSSworD"
+  MYSQL_ROOT_PASSWORD: "r00tPaSSworD"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: bookshop
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306  
+          name: mysql
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql  
+        envFrom:
+        - secretRef:
+            name: mysql-secret
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-storage
+      namespace: bookshop
+    spec:
+      storageClassName: nfs-storageclass
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: bookshop
+spec:
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
+  type: ClusterIP
+
+
